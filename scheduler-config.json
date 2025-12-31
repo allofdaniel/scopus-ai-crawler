@@ -1,0 +1,14 @@
+{
+  "intervalHours": 24,
+  "maxRuns": 0,
+  "jobs": [
+    {
+      "keywords": ["machine learning", "aviation safety"],
+      "context": "Machine learning and deep learning applications in aviation safety systems, predictive maintenance, and flight operations",
+      "maxDepth": 1,
+      "papersPerSource": 20,
+      "downloadPdfs": true,
+      "outputDir": "./crawler-output/aviation-ml"
+    }
+  ]
+}

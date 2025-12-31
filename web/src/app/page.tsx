@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { searchPapers, Paper, SearchResult } from "@/lib/api";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -17,30 +16,139 @@ import {
   ExternalLink,
   Quote,
   Calendar,
+  Download,
+  RefreshCw,
+  FileText,
+  TrendingUp,
+  GitBranch,
+  Brain,
 } from "lucide-react";
-import { formatDate, getDecisionLabel, getDecisionColor, truncateText } from "@/lib/utils";
+
+interface Analysis {
+  readingDecision: 'must_read' | 'should_read' | 'maybe_read' | 'skip';
+  readingReason: string;
+  relevanceScore: number;
+  abstractSummary: string;
+  keyFindings: string[];
+}
+
+interface Paper {
+  id: string;
+  doi?: string;
+  title: string;
+  authors: { name: string }[];
+  abstract?: string;
+  keywords: string[];
+  publicationDate?: string;
+  journal?: string;
+  citationCount: number;
+  source: string;
+  openAccessUrl?: string;
+  analysis?: Analysis;
+  depth: number;
+}
+
+interface CrawlResult {
+  papers: Paper[];
+  summary?: string;
+  stats: {
+    total: number;
+    byDecision: Record<string, number>;
+    byDepth: { initial: number; fromReferences: number };
+  };
+}
+
+interface CrawlStatus {
+  isRunning: boolean;
+  progress: number;
+  totalPapers: number;
+  processedPapers: number;
+  papers: Paper[];
+  summary?: string;
+  error?: string;
+}
+
+// Utils
+function formatDate(date?: string): string {
+  if (!date) return '날짜 미상';
+  try {
+    return new Date(date).toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return date;
+  }
+}
+
+function getDecisionLabel(decision?: string): string {
+  const labels: Record<string, string> = {
+    must_read: '필독',
+    should_read: '권장',
+    maybe_read: '선택',
+    skip: '건너뛰기',
+  };
+  return labels[decision || ''] || '미분석';
+}
+
+function getDecisionColor(decision?: string): string {
+  const colors: Record<string, string> = {
+    must_read: 'bg-red-500 text-white',
+    should_read: 'bg-orange-500 text-white',
+    maybe_read: 'bg-yellow-500 text-black',
+    skip: 'bg-gray-400 text-white',
+  };
+  return colors[decision || ''] || 'bg-gray-200';
+}
+
+function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
+}
 
 export default function Home() {
   const [keywords, setKeywords] = useState<string[]>([""]);
   const [context, setContext] = useState("");
-  const [results, setResults] = useState<SearchResult | null>(null);
+  const [maxDepth, setMaxDepth] = useState(1);
+  const [results, setResults] = useState<CrawlResult | null>(null);
   const [filter, setFilter] = useState<string | null>(null);
+  const [showSummary, setShowSummary] = useState(false);
 
-  const mutation = useMutation({
-    mutationFn: searchPapers,
+  const crawlMutation = useMutation({
+    mutationFn: async (params: { keywords: string[]; context?: string; maxDepth: number }) => {
+      const response = await fetch('/api/crawl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...params,
+          papersPerSource: 15,
+        }),
+      });
+      if (!response.ok) throw new Error('Crawl failed');
+      return response.json() as Promise<CrawlResult>;
+    },
     onSuccess: (data) => {
       setResults(data);
     },
   });
 
-  const addKeyword = () => setKeywords([...keywords, ""]);
+  // Poll for status during crawl
+  const { data: status } = useQuery<CrawlStatus>({
+    queryKey: ['crawlStatus'],
+    queryFn: async () => {
+      const response = await fetch('/api/crawl');
+      return response.json();
+    },
+    refetchInterval: crawlMutation.isPending ? 2000 : false,
+  });
 
+  const addKeyword = () => setKeywords([...keywords, ""]);
   const removeKeyword = (index: number) => {
     if (keywords.length > 1) {
       setKeywords(keywords.filter((_, i) => i !== index));
     }
   };
-
   const updateKeyword = (index: number, value: string) => {
     const newKeywords = [...keywords];
     newKeywords[index] = value;
@@ -51,23 +159,35 @@ export default function Home() {
     e.preventDefault();
     const validKeywords = keywords.filter((k) => k.trim() !== "");
     if (validKeywords.length === 0) return;
-
-    mutation.mutate({
+    crawlMutation.mutate({
       keywords: validKeywords,
       context: context || undefined,
-      limit: 30,
+      maxDepth,
     });
   };
 
   const filteredPapers = results?.papers.filter((paper) => {
     if (!filter) return true;
+    if (filter === 'unanalyzed') return !paper.analysis;
     return paper.analysis?.readingDecision === filter;
   });
 
   const decisions = ["must_read", "should_read", "maybe_read", "skip"];
 
+  // Export to JSON
+  const exportResults = () => {
+    if (!results) return;
+    const data = JSON.stringify(results, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `research-results-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+  };
+
   return (
-    <div className="container mx-auto py-8 px-4 max-w-6xl">
+    <div className="container mx-auto py-8 px-4 max-w-7xl">
       <header className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <BookOpen className="w-8 h-8 text-primary" />
@@ -75,7 +195,7 @@ export default function Home() {
           <Sparkles className="w-6 h-6 text-yellow-500" />
         </div>
         <p className="text-muted-foreground">
-          AI 기반 학술 논문 자동 탐색 및 분석 시스템
+          AI 기반 학술 논문 자동 탐색, 참조 추적 및 분석 시스템
         </p>
       </header>
 
@@ -83,10 +203,10 @@ export default function Home() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Search className="w-5 h-5" />
-            논문 검색
+            논문 크롤링
           </CardTitle>
           <CardDescription>
-            연구 분야의 키워드를 입력하고 AI가 논문을 분석합니다
+            키워드로 검색하고 AI가 논문을 분석하며 참조 논문까지 추적합니다
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -133,44 +253,153 @@ export default function Home() {
               />
             </div>
 
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <label className="text-sm font-medium">참조 추적 깊이:</label>
+                <select
+                  className="px-3 py-2 rounded-md border border-input bg-background text-sm"
+                  value={maxDepth}
+                  onChange={(e) => setMaxDepth(parseInt(e.target.value))}
+                >
+                  <option value={0}>추적 안함</option>
+                  <option value={1}>1단계</option>
+                  <option value={2}>2단계</option>
+                </select>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                <GitBranch className="w-3 h-3 inline mr-1" />
+                높을수록 더 많은 관련 논문 발견
+              </div>
+            </div>
+
             <Button
               type="submit"
               className="w-full"
-              disabled={mutation.isPending}
+              disabled={crawlMutation.isPending}
             >
-              {mutation.isPending ? (
+              {crawlMutation.isPending ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  검색 및 AI 분석 중...
+                  크롤링 중... {status?.progress || 0}%
                 </>
               ) : (
                 <>
-                  <Search className="w-4 h-4 mr-2" />
-                  논문 검색
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  논문 크롤링 시작
                 </>
               )}
             </Button>
+
+            {crawlMutation.isPending && status && (
+              <div className="space-y-2">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-primary h-2 rounded-full transition-all"
+                    style={{ width: `${status.progress}%` }}
+                  />
+                </div>
+                <p className="text-sm text-center text-muted-foreground">
+                  {status.processedPapers}/{status.totalPapers} 논문 처리 중...
+                </p>
+              </div>
+            )}
           </form>
         </CardContent>
       </Card>
 
       {results && (
         <>
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <div className="text-sm text-muted-foreground">
-              총 {results.totalFound}개 발견, {results.uniqueCount}개 고유 논문
-              <span className="ml-2 text-xs">
-                (S2: {results.sources.semanticScholar}, OA: {results.sources.openAlex}, CR: {results.sources.crossRef})
-              </span>
-            </div>
+          {/* Stats Cards */}
+          <div className="grid gap-4 md:grid-cols-4 mb-6">
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-blue-500" />
+                  <div>
+                    <p className="text-2xl font-bold">{results.stats.total}</p>
+                    <p className="text-xs text-muted-foreground">총 논문</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-red-500" />
+                  <div>
+                    <p className="text-2xl font-bold">{results.stats.byDecision.must_read || 0}</p>
+                    <p className="text-xs text-muted-foreground">필독 논문</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2">
+                  <GitBranch className="w-5 h-5 text-green-500" />
+                  <div>
+                    <p className="text-2xl font-bold">{results.stats.byDepth.fromReferences}</p>
+                    <p className="text-xs text-muted-foreground">참조에서 발견</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-purple-500" />
+                  <div>
+                    <p className="text-2xl font-bold">
+                      {results.stats.total - (results.stats.byDecision.unanalyzed || 0)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">AI 분석됨</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-            <div className="flex items-center gap-2 ml-auto">
+          {/* AI Summary */}
+          {results.summary && (
+            <Card className="mb-6">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Brain className="w-5 h-5" />
+                    AI 연구 요약
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowSummary(!showSummary)}
+                  >
+                    {showSummary ? '접기' : '펼치기'}
+                  </Button>
+                </div>
+              </CardHeader>
+              {showSummary && (
+                <CardContent>
+                  <div className="prose prose-sm max-w-none">
+                    {results.summary.split('\n').map((paragraph, i) => (
+                      <p key={i} className="mb-2 text-sm text-muted-foreground">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </CardContent>
+              )}
+            </Card>
+          )}
+
+          {/* Filters & Export */}
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            <div className="flex items-center gap-2">
               <Button
                 variant={filter === null ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilter(null)}
               >
-                전체
+                전체 ({results.stats.total})
               </Button>
               {decisions.map((d) => (
                 <Button
@@ -180,12 +409,23 @@ export default function Home() {
                   onClick={() => setFilter(d)}
                   className={filter === d ? getDecisionColor(d) : ""}
                 >
-                  {getDecisionLabel(d)}
+                  {getDecisionLabel(d)} ({results.stats.byDecision[d] || 0})
                 </Button>
               ))}
             </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-auto"
+              onClick={exportResults}
+            >
+              <Download className="w-4 h-4 mr-1" />
+              JSON 내보내기
+            </Button>
           </div>
 
+          {/* Paper Grid */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredPapers?.map((paper) => (
               <PaperCard key={paper.id} paper={paper} />
@@ -212,17 +452,25 @@ export default function Home() {
 
 function PaperCard({ paper }: { paper: Paper }) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
+    <Card className={`hover:shadow-md transition-shadow ${paper.depth > 0 ? 'border-l-4 border-l-green-400' : ''}`}>
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between gap-2">
           <CardTitle className="text-base leading-tight">
-            {truncateText(paper.title, 100)}
+            {truncateText(paper.title, 80)}
           </CardTitle>
-          {paper.analysis && (
-            <Badge className={`shrink-0 ${getDecisionColor(paper.analysis.readingDecision)}`}>
-              {getDecisionLabel(paper.analysis.readingDecision)}
-            </Badge>
-          )}
+          <div className="flex gap-1 shrink-0">
+            {paper.depth > 0 && (
+              <Badge variant="outline" className="text-xs">
+                <GitBranch className="w-3 h-3 mr-1" />
+                참조
+              </Badge>
+            )}
+            {paper.analysis && (
+              <Badge className={getDecisionColor(paper.analysis.readingDecision)}>
+                {getDecisionLabel(paper.analysis.readingDecision)}
+              </Badge>
+            )}
+          </div>
         </div>
         <p className="text-xs text-muted-foreground">
           {paper.authors.slice(0, 2).map((a) => a.name).join(", ")}
@@ -232,7 +480,13 @@ function PaperCard({ paper }: { paper: Paper }) {
       <CardContent className="space-y-3">
         {paper.analysis?.abstractSummary && (
           <p className="text-sm text-muted-foreground">
-            {truncateText(paper.analysis.abstractSummary, 150)}
+            {truncateText(paper.analysis.abstractSummary, 120)}
+          </p>
+        )}
+
+        {paper.analysis?.readingReason && (
+          <p className="text-xs italic text-muted-foreground border-l-2 pl-2">
+            "{truncateText(paper.analysis.readingReason, 80)}"
           </p>
         )}
 
@@ -241,7 +495,7 @@ function PaperCard({ paper }: { paper: Paper }) {
             <span className="font-medium">주요 발견:</span>
             <ul className="list-disc list-inside text-muted-foreground">
               {paper.analysis.keyFindings.slice(0, 2).map((f, i) => (
-                <li key={i}>{truncateText(f, 50)}</li>
+                <li key={i}>{truncateText(f, 40)}</li>
               ))}
             </ul>
           </div>
@@ -251,7 +505,7 @@ function PaperCard({ paper }: { paper: Paper }) {
           {paper.journal && (
             <span className="flex items-center gap-1">
               <BookOpen className="w-3 h-3" />
-              {truncateText(paper.journal, 25)}
+              {truncateText(paper.journal, 20)}
             </span>
           )}
           <span className="flex items-center gap-1">
@@ -260,10 +514,10 @@ function PaperCard({ paper }: { paper: Paper }) {
           </span>
           <span className="flex items-center gap-1">
             <Quote className="w-3 h-3" />
-            {paper.citationCount}
+            {paper.citationCount.toLocaleString()}
           </span>
           {paper.analysis && (
-            <span className="ml-auto font-medium">
+            <span className="ml-auto font-medium text-primary">
               {(paper.analysis.relevanceScore * 100).toFixed(0)}%
             </span>
           )}

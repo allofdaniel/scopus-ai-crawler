@@ -1,0 +1,517 @@
+{
+  "papers": {
+    "doi:10.1109/cvpr.2016.90": {
+      "id": "10.1109/cvpr.2016.90",
+      "doi": "10.1109/cvpr.2016.90",
+      "title": "Deep Residual Learning for Image Recognition",
+      "authors": [
+        {
+          "name": "Kaiming He"
+        },
+        {
+          "name": "Xiangyu Zhang"
+        },
+        {
+          "name": "Shaoqing Ren"
+        },
+        {
+          "name": "Jian Sun"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2016-06-01",
+      "journal": "2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "citationCount": 153617,
+      "source": "crossref",
+      "references": [
+        "10.1007/3-540-49430-8_11",
+        "10.1017/CBO9780511812651",
+        "10.1109/CVPR.2007.383266",
+        "10.1109/CVPR.2015.7298965",
+        "10.1093/oso/9780198538493.001.0001",
+        "10.1109/72.279181",
+        "10.1162/neco.1989.1.4.541",
+        "10.1007/3-540-49430-8_2",
+        "10.1109/CVPR.2015.7299173",
+        "10.1109/ICCV.2015.123",
+        "10.1162/neco.1997.9.8.1735",
+        "10.1109/TPAMI.2010.57",
+        "10.1109/TPAMI.2011.235",
+        "10.5244/C.25.76",
+        "10.1137/1.9780898719505",
+        "10.1109/ICCV.2015.169",
+        "10.1007/s11263-009-0275-4",
+        "10.1109/CVPR.2014.81",
+        "10.1007/978-3-642-42054-2_55",
+        "10.1145/1179352.1142005",
+        "10.1007/978-1-4757-3121-7",
+        "10.1109/34.56188",
+        "10.1109/CVPR.2015.7298594"
+      ],
+      "analyzedAt": "2025-12-31T10:59:11.175Z",
+      "depth": 0
+    },
+    "doi:10.1023/a:1010933404324": {
+      "id": "10.1023/a:1010933404324",
+      "doi": "10.1023/a:1010933404324",
+      "title": "Random Forests",
+      "authors": [
+        {
+          "name": "Leo Breiman"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2001-10-01",
+      "journal": "Machine Learning",
+      "citationCount": 102565,
+      "source": "crossref",
+      "openAccessUrl": "https://link.springer.com/content/pdf/10.1023/A:1010933404324.pdf",
+      "references": [
+        "10.1162/neco.1997.9.7.1545",
+        "10.1023/A:1007515423169",
+        "10.1023/A:1018054314350",
+        "10.1214/aos/1024691079",
+        "10.1109/34.709601",
+        "10.1109/34.857004"
+      ],
+      "pdfPath": "crawler-output\\aviation-ml\\pdfs\\10.1023_a:1010933404324.pdf",
+      "analyzedAt": "2025-12-31T10:59:15.292Z",
+      "depth": 0
+    },
+    "doi:10.1038/nature14539": {
+      "id": "10.1038/nature14539",
+      "doi": "10.1038/nature14539",
+      "title": "Deep learning",
+      "authors": [
+        {
+          "name": "Yann LeCun"
+        },
+        {
+          "name": "Yoshua Bengio"
+        },
+        {
+          "name": "Geoffrey Hinton"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2015-05-27",
+      "journal": "Nature",
+      "citationCount": 67744,
+      "source": "crossref",
+      "openAccessUrl": "http://www.nature.com/articles/nature14539.pdf",
+      "references": [
+        "10.1109/TPAMI.2012.231",
+        "10.1109/MSP.2012.2205597",
+        "10.1021/ci500747n",
+        "10.1088/1742-6596/368/1/012030",
+        "10.1038/nature12346",
+        "10.1093/bioinformatics/btu277",
+        "10.1126/science.1254806",
+        "10.1038/323533a0",
+        "10.1162/neco.2006.18.7.1527",
+        "10.1126/science.1127647",
+        "10.1145/1553374.1553486",
+        "10.1109/TASL.2011.2109382",
+        "10.1109/TPAMI.2013.50",
+        "10.1109/5.726791",
+        "10.1113/jphysiol.1962.sp006837",
+        "10.1093/cercor/1.1.1",
+        "10.1371/journal.pcbi.1003963",
+        "10.1016/0031-3203(82)90024-3",
+        "10.1109/29.21701",
+        "10.1109/72.554195",
+        "10.1016/j.neunet.2012.02.023",
+        "10.1109/TIP.2005.852470",
+        "10.1162/neco.2009.10-08-881",
+        "10.1109/TPAMI.2004.97",
+        "10.1002/rob.20276",
+        "10.1109/4.104196",
+        "10.1017/CBO9781139042918.020",
+        "10.1561/9781601982957",
+        "10.1016/j.csl.2006.09.003",
+        "10.1109/72.279181",
+        "10.1162/neco.1997.9.8.1735",
+        "10.7551/mitpress/6161.001.0001",
+        "10.1126/science.7761831",
+        "10.1145/1390156.1390294",
+        "10.1109/TPAMI.2013.29",
+        "10.1038/nature14236",
+        "10.1007/s10994-013-5335-x"
+      ],
+      "analyzedAt": "2025-12-31T10:59:21.492Z",
+      "depth": 0
+    },
+    "doi:10.1109/5.726791": {
+      "id": "10.1109/5.726791",
+      "doi": "10.1109/5.726791",
+      "title": "Gradient-based learning applied to document recognition",
+      "authors": [
+        {
+          "name": "Y. Lecun"
+        },
+        {
+          "name": "L. Bottou"
+        },
+        {
+          "name": "Y. Bengio"
+        },
+        {
+          "name": "P. Haffner"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1998-01-01",
+      "journal": "Proceedings of the IEEE",
+      "citationCount": 42473,
+      "source": "crossref",
+      "references": [
+        "10.1109/72.554195",
+        "10.1162/neco.1995.7.6.1289",
+        "10.1016/0031-3203(82)90024-3",
+        "10.1007/BF00342633",
+        "10.1113/jphysiol.1962.sp006837",
+        "10.1109/ICNN.1993.298793",
+        "10.1162/neco.1993.5.3.419",
+        "10.1109/5.18626",
+        "10.1007/978-1-4615-3210-1",
+        "10.1109/5.156474",
+        "10.1109/5.156477",
+        "10.1109/78.175747",
+        "10.1007/BF00116037",
+        "10.1162/neco.1992.4.6.888",
+        "10.1007/BF02551274",
+        "10.1162/neco.1991.3.3.440",
+        "10.1109/TC.1978.1675179",
+        "10.1162/neco.1994.6.5.851",
+        "10.1103/PhysRevA.45.6056",
+        "10.1007/978-1-4757-2440-0",
+        "10.1016/0885-2308(87)90010-6",
+        "10.1109/PGEC.1967.264666",
+        "10.1103/PhysRevLett.66.2396",
+        "10.1142/S0218001493000339",
+        "10.1109/ICASSP.1986.1169179",
+        "10.1613/jair.105",
+        "10.1016/0893-6080(90)90028-J",
+        "10.1109/29.21701",
+        "10.1016/0031-3203(91)90081-F",
+        "10.1016/0167-6393(90)90049-F",
+        "10.1109/ICASSP.1989.266355",
+        "10.1109/TIT.1967.1054010",
+        "10.1109/72.125866",
+        "10.1109/ICASSP.1990.115733",
+        "10.1109/ICASSP.1990.115724",
+        "10.1109/72.279181",
+        "10.1145/130385.130401",
+        "10.1109/72.129422",
+        "10.1109/IJCNN.1992.227175",
+        "10.1162/neco.1989.1.4.541",
+        "10.1109/ICPR.1994.576889",
+        "10.1109/89.568733",
+        "10.1049/ip-vis:19941301",
+        "10.1109/ICPR.1994.576966",
+        "10.1109/72.536317",
+        "10.1109/2.144441",
+        "10.1109/89.260364",
+        "10.1109/ICASSP.1994.389576",
+        "10.1109/34.57669",
+        "10.1109/CVPR.1996.517075",
+        "10.1109/CVPR.1997.609310",
+        "10.1207/s15516709cog0901_7",
+        "10.1162/neco.1992.4.2.141",
+        "10.1109/72.363436",
+        "10.1007/978-3-642-82657-3_24",
+        "10.21437/Eurospeech.1997-46",
+        "10.1109/ICSMC.1995.538133",
+        "10.1109/ICDAR.1995.598933",
+        "10.1109/ICNN.1988.23829",
+        "10.1142/S0218001493000340",
+        "10.1109/ICASSP.1993.319196",
+        "10.3115/1075812.1075870",
+        "10.1109/12.210173",
+        "10.1109/4.104196"
+      ],
+      "analyzedAt": "2025-12-31T10:59:24.004Z",
+      "depth": 0
+    },
+    "doi:10.1109/tpami.2016.2577031": {
+      "id": "10.1109/tpami.2016.2577031",
+      "doi": "10.1109/tpami.2016.2577031",
+      "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+      "authors": [
+        {
+          "name": "Shaoqing Ren"
+        },
+        {
+          "name": "Kaiming He"
+        },
+        {
+          "name": "Ross Girshick"
+        },
+        {
+          "name": "Jian Sun"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2017-06-01",
+      "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "citationCount": 30212,
+      "source": "crossref",
+      "references": [
+        "10.1007/978-3-319-10578-9_23",
+        "10.1109/ICCV.2015.169",
+        "10.1007/s11263-013-0620-5",
+        "10.1109/CVPR.2014.81",
+        "10.1007/978-3-319-10602-1_26",
+        "10.1109/CVPR.2015.7298965",
+        "10.1109/TPAMI.2009.167",
+        "10.1109/tpami.2016.2577031",
+        "10.1007/s11263-009-0275-4",
+        "10.1007/978-3-319-10602-1_48",
+        "10.5244/C.28.24",
+        "10.1109/TPAMI.2015.2465908",
+        "10.1109/TPAMI.2011.231",
+        "10.1109/CVPR.2014.49",
+        "10.1109/TPAMI.2012.28",
+        "10.1109/CVPR.2014.276",
+        "10.1109/CVPR.2015.7299025",
+        "10.1007/978-3-319-10590-1_53",
+        "10.5555/3104322.3104425",
+        "10.4324/9781410605337-29",
+        "10.1162/neco.1989.1.4.541",
+        "10.1007/s11263-015-0816-y",
+        "10.1145/2647868.2654889",
+        "10.5244/C.29.5",
+        "10.1007/978-3-642-33712-3_25"
+      ],
+      "analyzedAt": "2025-12-31T10:59:26.524Z",
+      "depth": 0
+    },
+    "doi:10.1007/bf00994018": {
+      "id": "10.1007/bf00994018",
+      "doi": "10.1007/bf00994018",
+      "title": "Support-vector networks",
+      "authors": [
+        {
+          "name": "Corinna Cortes"
+        },
+        {
+          "name": "Vladimir Vapnik"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1995-09-01",
+      "journal": "Machine Learning",
+      "citationCount": 29580,
+      "source": "crossref",
+      "openAccessUrl": "http://link.springer.com/content/pdf/10.1007/BF00994018.pdf",
+      "references": [
+        "10.1214/aoms/1177704568",
+        "10.1145/130385.130401",
+        "10.1109/ICPR.1994.576879",
+        "10.1038/323533a0"
+      ],
+      "pdfPath": "crawler-output\\aviation-ml\\pdfs\\10.1007_bf00994018.pdf",
+      "analyzedAt": "2025-12-31T10:59:31.267Z",
+      "depth": 0
+    },
+    "doi:10.1017/cbo9780511815355": {
+      "id": "10.1017/cbo9780511815355",
+      "doi": "10.1017/cbo9780511815355",
+      "title": "Situated Learning",
+      "authors": [
+        {
+          "name": "Jean Lave"
+        },
+        {
+          "name": "Etienne Wenger"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1991-09-27",
+      "citationCount": 28679,
+      "source": "crossref",
+      "references": [],
+      "analyzedAt": "2025-12-31T10:59:33.787Z",
+      "depth": 0
+    },
+    "doi:10.2307/2393553": {
+      "id": "10.2307/2393553",
+      "doi": "10.2307/2393553",
+      "title": "Absorptive Capacity: A New Perspective on Learning and Innovation",
+      "authors": [
+        {
+          "name": "Wesley M. Cohen"
+        },
+        {
+          "name": "Daniel A. Levinthal"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1990-03-01",
+      "journal": "Administrative Science Quarterly",
+      "citationCount": 22222,
+      "source": "crossref",
+      "references": [],
+      "analyzedAt": "2025-12-31T10:59:36.309Z",
+      "depth": 0
+    },
+    "doi:10.1109/tpami.1986.4767851": {
+      "id": "10.1109/tpami.1986.4767851",
+      "doi": "10.1109/tpami.1986.4767851",
+      "title": "A Computational Approach to Edge Detection",
+      "authors": [
+        {
+          "name": "John Canny"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1986-11-01",
+      "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "citationCount": 22028,
+      "source": "crossref",
+      "references": [
+        "10.7551/mitpress/2946.001.0001",
+        "10.1117/12.933616",
+        "10.1098/rstb.1976.0090",
+        "10.1098/rspb.1980.0020",
+        "10.1098/rspb.1979.0029",
+        "10.7551/mitpress/3877.001.0001",
+        "10.1109/T-C.1975.224274",
+        "10.1109/TAU.1967.1161895",
+        "10.1016/0004-3702(81)90029-1",
+        "10.1002/j.1538-7305.1945.tb00453.x",
+        "10.1109/T-C.1971.223290"
+      ],
+      "analyzedAt": "2025-12-31T10:59:38.824Z",
+      "depth": 0
+    },
+    "doi:10.1038/323533a0": {
+      "id": "10.1038/323533a0",
+      "doi": "10.1038/323533a0",
+      "title": "Learning representations by back-propagating errors",
+      "authors": [
+        {
+          "name": "David E. Rumelhart"
+        },
+        {
+          "name": "Geoffrey E. Hinton"
+        },
+        {
+          "name": "Ronald J. Williams"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "1986-10-01",
+      "journal": "Nature",
+      "citationCount": 21969,
+      "source": "crossref",
+      "openAccessUrl": "http://www.nature.com/articles/323533a0.pdf",
+      "references": [
+        "10.7551/mitpress/5236.001.0001"
+      ],
+      "analyzedAt": "2025-12-31T10:59:44.864Z",
+      "depth": 0
+    },
+    "doi:10.1038/nature14236": {
+      "id": "10.1038/nature14236",
+      "doi": "10.1038/nature14236",
+      "title": "Human-level control through deep reinforcement learning",
+      "authors": [
+        {
+          "name": "Volodymyr Mnih"
+        },
+        {
+          "name": "Koray Kavukcuoglu"
+        },
+        {
+          "name": "David Silver"
+        },
+        {
+          "name": "Andrei A. Rusu"
+        },
+        {
+          "name": "Joel Veness"
+        },
+        {
+          "name": "Marc G. Bellemare"
+        },
+        {
+          "name": "Alex Graves"
+        },
+        {
+          "name": "Martin Riedmiller"
+        },
+        {
+          "name": "Andreas K. Fidjeland"
+        },
+        {
+          "name": "Georg Ostrovski"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2015-02-25",
+      "journal": "Nature",
+      "citationCount": 21165,
+      "source": "crossref",
+      "openAccessUrl": "http://www.nature.com/articles/nature14236.pdf",
+      "references": [
+        "10.5962/bhl.title.55072",
+        "10.1126/science.275.5306.1593",
+        "10.1007/BF00344251",
+        "10.1145/203330.203343",
+        "10.1007/s10514-009-9120-4",
+        "10.1561/2200000006",
+        "10.1126/science.1127647",
+        "10.1613/jair.3912",
+        "10.1007/s11023-007-9079-x",
+        "10.1109/5.726791",
+        "10.1113/jphysiol.1963.sp007079",
+        "10.1109/9.580874",
+        "10.1037/0033-295X.102.3.419",
+        "10.1016/j.tins.2010.01.006",
+        "10.1038/nn.2304",
+        "10.1038/415318a",
+        "10.1038/nn.3203",
+        "10.1016/S0004-3702(98)00023-X"
+      ],
+      "analyzedAt": "2025-12-31T10:59:51.019Z",
+      "depth": 0
+    },
+    "doi:10.1007/978-0-387-84858-7": {
+      "id": "10.1007/978-0-387-84858-7",
+      "doi": "10.1007/978-0-387-84858-7",
+      "title": "The Elements of Statistical Learning",
+      "authors": [
+        {
+          "name": "Trevor Hastie"
+        },
+        {
+          "name": "Robert Tibshirani"
+        },
+        {
+          "name": "Jerome Friedman"
+        }
+      ],
+      "keywords": [],
+      "publicationDate": "2009-01-01",
+      "journal": "Springer Series in Statistics",
+      "citationCount": 20294,
+      "source": "crossref",
+      "openAccessUrl": "http://link.springer.com/content/pdf/10.1007/978-0-387-84858-7.pdf",
+      "references": [],
+      "analyzedAt": "2025-12-31T10:59:57.144Z",
+      "depth": 0
+    }
+  },
+  "queries": [
+    {
+      "keywords": [
+        "machine learning",
+        "aviation safety"
+      ],
+      "context": "Machine learning and deep learning applications in aviation safety systems, predictive maintenance, and flight operations",
+      "createdAt": "2025-12-31T10:59:07.123Z"
+    }
+  ],
+  "lastUpdated": "2025-12-31T10:59:57.144Z"
+}
